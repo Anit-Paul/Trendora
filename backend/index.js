@@ -3,10 +3,18 @@ import dotenv from "dotenv";
 import connectDB from "./config/dbConnection.js";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRouter.js";
+import {cors} from "cors";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
+
+// OR allow specific frontend origin
+app.use(cors({
+  origin: process.env.Frontend_URL, // your frontend
+  methods: ["GET", "POST"],        // allowed methods
+  credentials: true                // allow cookies/auth
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
