@@ -4,7 +4,8 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 20px;
+    padding: 12vh 20px 20px 20px;
+    /* Added top padding to account for nav height */
 }
 
 .loginCard {
@@ -24,11 +25,11 @@
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .formGroup {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     position: relative;
 }
 
@@ -93,6 +94,56 @@
 
 .signupLink:hover {
     color: #2b6cb0;
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.auth svg {
+    font-size: 1.5rem;
+}
+
+.auth span {
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.auth:hover {
+    border-color: #4299e1;
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(66, 153, 225, 0.1);
+}
+
+.loginCard p {
+    text-align: center;
+    color: #718096;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginCard p::before,
+.loginCard p::after {
+    content: "";
+    height: 1px;
+    background-color: #e2e8f0;
+    flex: 1;
+    margin: 0 1rem;
 }
 
 /* Error states */
