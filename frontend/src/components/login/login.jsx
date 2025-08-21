@@ -1,6 +1,46 @@
-function login(){
-    return (
-        <h1>login page</h1>
-    )
+import "bootstrap/dist/css/bootstrap.min.css";
+import { AiOutlineLogin } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import styles from "./login.module.css";
+
+function Login() {
+  return (
+    <div className={styles.loginContainer}>
+      <div className={styles.loginCard}>
+        <h2 className={styles.loginTitle}>Welcome Back</h2>
+        <form>
+          <div className={styles.formGroup}>
+            <label htmlFor="email" className={styles.formLabel}>
+              Email address
+            </label>
+            <input
+              type="email"
+              className={styles.formInput}
+              id="email"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="password" className={styles.formLabel}>
+              Password
+            </label>
+            <input
+              type="password"
+              className={styles.formInput}
+              id="password"
+              placeholder="Enter your password"
+            />
+          </div>
+          <button type="submit" className={styles.loginButton}>
+            <AiOutlineLogin />
+            Login
+          </button>
+          <Link to="/register" className={styles.signupLink}>
+            Don't have an account? Sign up
+          </Link>
+        </form>
+      </div>
+    </div>
+  );
 }
-export default login;
+export default Login;
