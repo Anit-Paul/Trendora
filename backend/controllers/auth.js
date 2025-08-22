@@ -25,7 +25,7 @@ async function RegisterAPI(req, res) {
       const hashPassword = await bcrypt.hash(password, 10);
       const newUser = new userModel({ name, email, password: hashPassword });
       const user = await newUser.save();
-      const token = getToken(user._id);
+      const token = await getToken(user._id);
       res.cookie("token", token, {
         httpOnly: true, // cannot be accessed via JS
         secure: process.env.NODE_ENV === "production", // true on HTTPS
@@ -60,7 +60,7 @@ async function LoginAPI(req, res) {
         message: "Incorrect Password",
       });
     }
-    const token = getToken(user._id);
+    const token = await getToken(user._id);
     res.cookie("token", token, {
       httpOnly: true, // cannot be accessed via JS
       secure: process.env.NODE_ENV === "production", // true on HTTPS
@@ -104,7 +104,7 @@ async function googleSignUp(req, res) {
 
     const newUser = new userModel({ name, email });
     const user = await newUser.save();
-    const token = getToken(user._id);
+    const token =await getToken(user._id);
     res.cookie("token", token, {
       httpOnly: true, // cannot be accessed via JS
       secure: process.env.NODE_ENV === "production", // true on HTTPS
@@ -132,7 +132,7 @@ async function googleLogin(req, res) {
         message: "User not found",
       });
     }
-    const token = getToken(user._id);
+    const token =await getToken(user._id);
     res.cookie("token", token, {
       httpOnly: true, // cannot be accessed via JS
       secure: process.env.NODE_ENV === "production", // true on HTTPS
