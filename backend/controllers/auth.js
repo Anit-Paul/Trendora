@@ -91,4 +91,63 @@ function LogoutAPI(req, res) {
     });
   }
 }
-export { RegisterAPI, LoginAPI, LogoutAPI };
+
+async function googleSignUp(req, res) {
+  try {
+    const { name, email } = req.body;
+    const existUser = await userModel.findOne({ email });
+    if (existUser) {
+      return res.status(400).json({
+        message: "User already exists",
+      });
+    }
+
+    const newUser = new userModel({ name, email });
+    const user = await newUser.save();
+    const token = getToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true, // cannot be accessed via JS
+      secure: process.env.NODE_ENV === "production", // true on HTTPS
+      sameSite: "strict", // prevent CSRF
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    return res.status(201).json({
+      message: "User created successfully",
+      user: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Google sign-up failed",
+      error: error.message,
+    });
+  }
+}
+
+async function googleLogin(req, res) {
+  try {
+    const { email } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const token = getToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true, // cannot be accessed via JS
+      secure: process.env.NODE_ENV === "production", // true on HTTPS
+      sameSite: "strict", // prevent CSRF
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    return res.status(200).json({
+      message: "Login successful",
+      user: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Google login failed",
+      error: error.message,
+    });
+  }
+}
+export { RegisterAPI, LoginAPI, LogoutAPI, googleSignUp, googleLogin };

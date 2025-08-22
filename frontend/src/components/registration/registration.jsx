@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IoCreateOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +7,8 @@ import { FcGoogle } from "react-icons/fc";
 import { useState, useContext } from "react";
 import AuthContext from "../../context/authContext";
 import axios from "axios";
-
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../../utils/firebase";
 function Registration() {
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -39,11 +39,34 @@ function Registration() {
       console.log(error);
     }
   };
+  const handleGoogleSignUp = async () => {
+    try{
+      const response=await signInWithPopup(auth, provider);
+      const user=response.user;
+      const name=user.displayName;
+      const email=user.email;
+      const res = await axios.post(
+        `${serverURL}/api/auth/googleRegister`,
+        {
+          name,
+          email,
+        },
+        { withCredentials: true }
+      );
+      if (res.status === 200 || res.status === 201) {
+        Navigate("/");
+      } else {
+        console.error("Registration failed:", res.data.message);
+      }
+    }catch (error) {
+      console.error("Google sign-up failed:", error);
+    }
+  }
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
         <h4 className={styles.loginTitle}>Register Yourself!</h4>
-        <div className={styles.auth}>
+        <div className={styles.auth} onClick={handleGoogleSignUp}>
           <FcGoogle />
           <span>Sign up with Google</span>
         </div>

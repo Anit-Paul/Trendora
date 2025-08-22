@@ -6,6 +6,10 @@ import Password from "../password/password";
 import { useContext, useState } from "react";
 import axios from "axios";
 import AuthContext from "../../context/authContext";
+import { FcGoogle } from "react-icons/fc";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../../utils/firebase";
+
 function Login() {
   const Navigate = useNavigate();
   const { serverURL } = useContext(AuthContext);
@@ -34,11 +38,34 @@ function Login() {
       console.error("Login failed:", error);
     }
   };
-
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      const user = response.user;
+      const email = user.email;
+      const res = await axios.post(
+        `${serverURL}/api/auth/googleLogin`,
+        { email },
+        { withCredentials: true }
+      );
+      if (res.status === 200 || res.status === 201) {
+        Navigate("/");
+      } else {
+        console.error("Login failed:", res.data.message);
+      }
+    } catch (error) {
+      console.error("Google login failed:", error);
+    }
+  };
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
         <h2 className={styles.loginTitle}>Welcome Back</h2>
+        <div className={styles.auth} onClick={handleGoogleLogin}>
+          <FcGoogle />
+          <span>Sign up with Google</span>
+        </div>
+        <p>Or</p>
         <form onSubmit={handleLogin}>
           <div className={styles.formGroup}>
             <label htmlFor="email" className={styles.formLabel}>
