@@ -1,11 +1,41 @@
+/* eslint-disable no-unused-vars */
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IoCreateOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./registration.module.css";
 import Password from "../password/password";
 import { FcGoogle } from "react-icons/fc";
+import { useState, useContext } from "react";
+import AuthContext from "../../context/authContext";
+import axios from "axios";
 
 function Registration() {
+  const Navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const { serverURL } = useContext(AuthContext);
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${serverURL}/api/auth/register`,
+        {
+          name,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      ); //for sending the credentials like cookies, authorization headers with req as we using different port/domain for frontend and backend
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setEmail("");
+      setName("");
+      setPassword("");
+      Navigate("/");
+    }
+  };
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
@@ -13,10 +43,9 @@ function Registration() {
         <div className={styles.auth}>
           <FcGoogle />
           <span>Sign up with Google</span>
-        
         </div>
         <p>Or</p>
-        <form>
+        <form onSubmit={handleRegistration}>
           <div className={styles.formGroup}>
             <label htmlFor="text" className={styles.formLabel}>
               Full Name
@@ -24,8 +53,9 @@ function Registration() {
             <input
               type="text"
               className={styles.formInput}
-              id="email"
+              id="name"
               placeholder="Enter your Full Name"
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className={styles.formGroup}>
@@ -37,9 +67,10 @@ function Registration() {
               className={styles.formInput}
               id="email"
               placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <Password />
+          <Password onChange={(e) => setPassword(e.target.value)} />
           <button type="submit" className={styles.loginButton}>
             <IoCreateOutline />
             Create Account

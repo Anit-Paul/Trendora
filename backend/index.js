@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/dbConnection.js";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRouter.js";
-import {cors} from "cors";
+import cors from "cors";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
