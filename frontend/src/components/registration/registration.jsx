@@ -27,13 +27,16 @@ function Registration() {
         },
         { withCredentials: true }
       ); //for sending the credentials like cookies, authorization headers with req as we using different port/domain for frontend and backend
+      if (response.status === 200 || response.status === 201) {
+        setEmail("");
+        setName("");
+        setPassword("");
+        Navigate("/");
+      } else {
+        console.error("Registration failed:", response.data.message);
+      }
     } catch (error) {
       console.log(error);
-    } finally {
-      setEmail("");
-      setName("");
-      setPassword("");
-      Navigate("/");
     }
   };
   return (
