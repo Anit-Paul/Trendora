@@ -5,12 +5,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import Login from "./components/login/login.jsx";
 import Registration from "./components/registration/registration.jsx";
+import UserProvider from "./context/userProvider.jsx";
 import AuthProvider from "./context/authProvider.jsx";
+import Hero from "./components/hero/Hero.jsx";
+
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <Hero />,
+      },
       {
         path: "/login",
         element: <Login />,
@@ -25,8 +32,10 @@ const Router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <React.StrictMode>
-      <RouterProvider router={Router} />
-    </React.StrictMode>
+    <UserProvider>
+      <React.StrictMode>
+        <RouterProvider router={Router} />
+      </React.StrictMode>
+    </UserProvider>
   </AuthProvider>
 );

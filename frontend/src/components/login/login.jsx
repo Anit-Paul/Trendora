@@ -9,12 +9,14 @@ import AuthContext from "../../context/authContext";
 import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../utils/firebase";
+import UserContext from "../../context/userContext";
 
 function Login() {
   const Navigate = useNavigate();
   const { serverURL } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {getCurrentUser}=useContext(UserContext)
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -30,6 +32,7 @@ function Login() {
         console.log("Login successful");
         setEmail("");
         setPassword("");
+        getCurrentUser()
         Navigate("/");
       } else {
         console.error("Login failed:", response.data.message);
@@ -49,6 +52,7 @@ function Login() {
         { withCredentials: true }
       );
       if (res.status === 200 || res.status === 201) {
+        getCurrentUser()
         Navigate("/");
       } else {
         console.error("Login failed:", res.data.message);

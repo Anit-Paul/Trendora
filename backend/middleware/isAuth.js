@@ -5,6 +5,7 @@ async function isAuth(req, res, next) {
   
   try {
     const { token } = req.cookies;
+    console.log(token)
     if (!token) {
       return res.status(400).json({
         message: "user does not have a token",

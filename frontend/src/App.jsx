@@ -1,14 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Nav from "./components/nav/nav";
 
-function App(){
+
+function App() {
   return (
     <>
-    <Nav />
-    
+      <Nav />
       <Outlet />
-    
     </>
-  )
+  );
 }
 export default App;

@@ -9,12 +9,15 @@ import AuthContext from "../../context/authContext";
 import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../utils/firebase";
+import UserContext from "../../context/userContext";
+
 function Registration() {
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { serverURL } = useContext(AuthContext);
+  const {getCurrentUser}=useContext(UserContext)
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
@@ -31,6 +34,7 @@ function Registration() {
         setEmail("");
         setName("");
         setPassword("");
+        getCurrentUser()
         Navigate("/");
       } else {
         console.error("Registration failed:", response.data.message);
@@ -54,6 +58,7 @@ function Registration() {
         { withCredentials: true }
       );
       if (res.status === 200 || res.status === 201) {
+        getCurrentUser()
         Navigate("/");
       } else {
         console.error("Registration failed:", res.data.message);
