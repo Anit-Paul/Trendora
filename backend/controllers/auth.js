@@ -1,7 +1,7 @@
 import userModel from "../model/userModel.js";
 import validator from "validator";
 import bcrypt from "bcryptjs";
-import getToken from "../config/token.js";
+import {getToken} from "../config/token.js";
 
 async function RegisterAPI(req, res) {
   try {

@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRouter.js";
 import cors from "cors";
 import userRouter from "./routes/userRouter.js";
-
+import adminRouter from "./routes/adminRouter.js";
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
-
+app.use("/api/admin",adminRouter);
 app.listen(PORT, () => {
   console.log("Server is running on port 3000");
   connectDB()
