@@ -12,7 +12,7 @@ const app = express();
 
 // OR allow specific frontend origin
 app.use(cors({
-  origin: process.env.Frontend_URL, // your frontend
+  origin: [process.env.Frontend_URL,process.env.ADMIN_URL], // your frontend
   methods: ["GET", "POST"],        // allowed methods
   credentials: true                // allow cookies/auth
 }));
