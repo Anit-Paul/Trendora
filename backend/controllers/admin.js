@@ -29,6 +29,7 @@ async function adminLogin(req, res) {
 }
 
 function getCurrentAdmin(req,res){
+  try{
   const email=req.email;
   if(!email){
     return res.status(400).json("admin not found")
@@ -36,7 +37,9 @@ function getCurrentAdmin(req,res){
   return res.status(200).json({
     email,
     role:"admin"
-  })
+  })}catch(error){
+    return res.status(500).json(error)
+  }
 }
 
 

@@ -5,7 +5,9 @@ import serverContext from "./server";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+
 axios.defaults.withCredentials=true;
+
 function AdminProvider({ children }) {
   const { serverURL } = useContext(serverContext);
   const [admin,setAdmin]=useState(null)
@@ -24,7 +26,6 @@ function AdminProvider({ children }) {
     }
   }
   useEffect(()=>{
-    console.log("again calling get")
     getAdmin()
   },[])
   const value = {

@@ -6,10 +6,11 @@ import Password from "../password/password";
 import { useContext, useState } from "react";
 import axios from "axios";
 import serverContext from "../../store/server";
-
+import adminContext from "../../store/admin";
 function Login() {
   const Navigate = useNavigate();
   const { serverURL } = useContext(serverContext);
+  const {admin,getAdmin}=useContext(adminContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -28,7 +29,7 @@ function Login() {
         console.log(response.data);
         setEmail("");
         setPassword("");
-        //getCurrentUser()
+        await getAdmin()
         Navigate("/");
       } else {
         console.error("Login failed:", response.data.message);
@@ -60,9 +61,6 @@ function Login() {
             <AiOutlineLogin />
             Login
           </button>
-          <Link to="/registration" className={styles.signupLink}>
-            Don't have an account? Sign up
-          </Link>
         </form>
       </div>
     </div>

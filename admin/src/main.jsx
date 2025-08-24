@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ServerProvider from "./store/serverProvider.jsx";
+import AdminProvider from "./store/adminProvider.jsx";
 import Login from "./components/login/login.jsx";
 const router = createBrowserRouter([
   {
@@ -29,7 +30,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ServerProvider>
-      <RouterProvider router={router} />
+      <AdminProvider>
+        <RouterProvider router={router} />
+      </AdminProvider>
     </ServerProvider>
   </StrictMode>
 );

@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config()
 async function isAdmin(req, res, next) {
   try {
     const { token } = req.cookies;
