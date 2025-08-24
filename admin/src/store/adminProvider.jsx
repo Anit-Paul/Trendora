@@ -17,7 +17,6 @@ function AdminProvider({ children }) {
       const response = await axios.post(`${serverURL}/api/admin/getAdmin`);
       if(response.status==200 || response.status==201){
         setAdmin(response.data)
-        
       }else{
         setAdmin(null)
       }

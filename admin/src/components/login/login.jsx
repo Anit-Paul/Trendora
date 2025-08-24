@@ -1,36 +1,41 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AiOutlineLogin } from "react-icons/ai";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./login.module.css";
 import Password from "../password/password";
 import { useContext, useState } from "react";
 import axios from "axios";
 import serverContext from "../../store/server";
 import adminContext from "../../store/admin";
+
 function Login() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const { serverURL } = useContext(serverContext);
-  const {admin,getAdmin}=useContext(adminContext)
+  const { getAdmin } = useContext(adminContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         `${serverURL}/api/admin/login`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true } //for sending the credentials like cookies, authorization headers with
+        { email, password },
+        { withCredentials: true }
       );
+
       if (response.status === 200 || response.status === 201) {
-        console.log(response.data);
+        console.log("login success:", response.data);
+
         setEmail("");
         setPassword("");
-        await getAdmin()
-        Navigate("/");
+
+        // refresh admin state (ignore errors so navigation always happens)
+        getAdmin().catch((err) => console.error("getAdmin failed:", err));
+
+        console.log("navigating...");
+        navigate("/home");   // ✅ will run regardless of getAdmin result
       } else {
         console.error("Login failed:", response.data.message);
       }
@@ -54,9 +59,12 @@ function Login() {
               id="email"
               placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
-          <Password onChange={(e) => setPassword(e.target.value)} />
+
+          <Password onChange={(e) => setPassword(e.target.value)} value={password} />
+
           <button type="submit" className={styles.loginButton}>
             <AiOutlineLogin />
             Login
@@ -66,4 +74,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
