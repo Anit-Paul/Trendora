@@ -7,10 +7,6 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import serverContext from "../../store/server";
 
-
-
-
-
 function Login() {
   const Navigate = useNavigate();
   const { serverURL } = useContext(serverContext);

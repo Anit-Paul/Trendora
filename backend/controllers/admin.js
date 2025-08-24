@@ -27,4 +27,17 @@ async function adminLogin(req, res) {
     });
   }
 }
-export default adminLogin;
+
+function getCurrentAdmin(req,res){
+  const email=req.email;
+  if(!email){
+    return res.status(400).json("admin not found")
+  }
+  return res.status(200).json({
+    email,
+    role:"admin"
+  })
+}
+
+
+export {adminLogin,getCurrentAdmin};

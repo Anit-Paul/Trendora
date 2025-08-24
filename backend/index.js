@@ -25,6 +25,7 @@ app.use(cookieParser());
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
 app.use("/api/admin",adminRouter);
+
 app.listen(PORT, () => {
   console.log("Server is running on port 3000");
   connectDB()
