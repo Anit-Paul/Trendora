@@ -1,8 +1,10 @@
 .sidebar {
     position: fixed;
     left: 0;
-    top: 10vh; /* Matching nav height */
-    height: 90vh; /* Adjusted for nav height */
+    top: 10vh;
+    /* Matching nav height */
+    height: 90vh;
+    /* Adjusted for nav height */
     width: 250px;
     background: rgba(255, 255, 255, 0.9);
     -webkit-backdrop-filter: blur(10px);

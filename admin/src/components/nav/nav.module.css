@@ -1,0 +1,90 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #1f1f1f, #2a2a2a);
+    padding: 0 2rem;
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo img {
+    height: 6vh;
+    max-height: 45px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.logo a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.logoutButton {
+    padding: 0.5rem 1.2rem;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logoutButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .nav {
+        padding: 0 1.5rem;
+        height: 8vh;
+    }
+
+    .logo img {
+        height: 5vh;
+    }
+
+    .logoutButton {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav {
+        padding: 0 1rem;
+    }
+
+    .logo img {
+        height: 4vh;
+    }
+
+    .logo a {
+        display: none;
+        /* Hide logo text on mobile */
+    }
+
+    .logoutButton {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
