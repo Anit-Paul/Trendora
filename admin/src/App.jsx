@@ -5,6 +5,7 @@ import adminContext from "./store/admin";
 import Nav from "./components/nav/nav";
 import Sidebar from "./components/sidebar/sidebar";
 import styles from "./components/sidebar/sidebar.module.css";
+import Product from "./components/products/product";
 // Layout component (Nav + Outlet)
 function Layout() {
   return (
@@ -33,7 +34,7 @@ function App() {
       {/* Protected layout with Nav */}
       <Route element={<Layout />}>
         <Route path="/home" element={<h1>Home</h1>} />
-        <Route path="/add-items" element={<h1>Add</h1>} />
+        <Route path="/add-items" element={<Product />} />
         <Route path="/list-items" element={<h1>List</h1>} />
         <Route path="/view-orders" element={<h1>Order</h1>} />
       </Route>
