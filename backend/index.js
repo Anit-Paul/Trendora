@@ -6,6 +6,7 @@ import authRouter from "./routes/authRouter.js";
 import cors from "cors";
 import userRouter from "./routes/userRouter.js";
 import adminRouter from "./routes/adminRouter.js";
+import productRouter from "./routes/productRouter.js";
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
 app.use("/api/admin",adminRouter);
+app.use("/api/product",productRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on port 3000");
