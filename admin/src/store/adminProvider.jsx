@@ -12,7 +12,7 @@ function AdminProvider({ children }) {
   const { serverURL } = useContext(serverContext);
   const [admin,setAdmin]=useState(null)
   async function getAdmin() {
-    console.log("i am called")
+    //console.log("i am called")
     try {
       const response = await axios.post(`${serverURL}/api/admin/getAdmin`);
       if(response.status==200 || response.status==201){

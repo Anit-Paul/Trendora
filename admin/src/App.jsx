@@ -3,13 +3,17 @@ import { useContext } from "react";
 import Login from "./components/login/login";
 import adminContext from "./store/admin";
 import Nav from "./components/nav/nav";
-
+import Sidebar from "./components/sidebar/sidebar";
+import styles from "./components/sidebar/sidebar.module.css";
 // Layout component (Nav + Outlet)
 function Layout() {
   return (
     <>
       <Nav />
-      <Outlet />
+      <Sidebar />
+      <main className={styles.mainContent}>
+        <Outlet />
+      </main>
     </>
   );
 }
@@ -29,9 +33,9 @@ function App() {
       {/* Protected layout with Nav */}
       <Route element={<Layout />}>
         <Route path="/home" element={<h1>Home</h1>} />
-        <Route path="/add" element={<h1>Add</h1>} />
-        <Route path="/list" element={<h1>List</h1>} />
-        <Route path="/order" element={<h1>Order</h1>} />
+        <Route path="/add-items" element={<h1>Add</h1>} />
+        <Route path="/list-items" element={<h1>List</h1>} />
+        <Route path="/view-orders" element={<h1>Order</h1>} />
       </Route>
 
       {/* login route stays accessible */}

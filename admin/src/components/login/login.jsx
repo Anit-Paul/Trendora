@@ -26,7 +26,7 @@ function Login() {
       );
 
       if (response.status === 200 || response.status === 201) {
-        console.log("login success:", response.data);
+        //console.log("login success:", response.data);
 
         setEmail("");
         setPassword("");
@@ -34,7 +34,7 @@ function Login() {
         // refresh admin state (ignore errors so navigation always happens)
         getAdmin().catch((err) => console.error("getAdmin failed:", err));
 
-        console.log("navigating...");
+        //console.log("navigating...");
         navigate("/home");   // ✅ will run regardless of getAdmin result
       } else {
         console.error("Login failed:", response.data.message);
@@ -47,7 +47,7 @@ function Login() {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
-        <h2 className={styles.loginTitle}>Welcome Back</h2>
+        <h2 className={styles.loginTitle}>Admin Login!</h2>
         <form onSubmit={handleLogin}>
           <div className={styles.formGroup}>
             <label htmlFor="email" className={styles.formLabel}>
