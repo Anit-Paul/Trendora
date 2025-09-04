@@ -64,4 +64,17 @@ async function listProduct(req,res,next){
   }
 }
 
-export {addProduct,listProduct};
+async function deleteProduct(req,res,next) {
+  try{
+    const {_id}=req.body;
+    const products=await productModel.findByIdAndDelete({_id})
+    return res.status(200).json({products})
+  }catch(error){
+    return res.status(500).json({
+      message:"something went wrong on deleteProduct!",
+      error:error
+    })
+  }
+}
+
+export {addProduct,listProduct,deleteProduct};
