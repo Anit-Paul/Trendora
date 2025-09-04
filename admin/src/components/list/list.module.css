@@ -110,6 +110,40 @@
     border-radius: 12px;
 }
 
+.alert {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background-color: #22c55e;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+.alert p {
+    margin: 0;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .listContainer {
@@ -147,5 +181,10 @@
 
     .productPrice {
         font-size: 1rem;
+    }
+
+    .alert {
+        right: 10px;
+        left: 10px;
     }
 }

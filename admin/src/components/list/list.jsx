@@ -7,7 +7,7 @@ import styles from "./list.module.css";
 function List() {
   const { serverURL } = useContext(serverContext);
   const [products, setProducts] = useState([]);
-
+  const [alert, setAlert] = useState(false);
   useEffect(() => {
     async function fetchProduct() {
       try {
@@ -21,8 +21,31 @@ function List() {
     fetchProduct();
   }, [products]);
 
+  async function handleDeleteItem(_id) {
+    try {
+      const response = await axios.post(
+        `${serverURL}/api/product/deleteProduct`,
+        { _id }
+      );
+      console.log(response);
+      if (response.status == 200 || response.status == 201) {
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false);
+        }, 4000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className={styles.listContainer}>
+      {alert && (
+        <div className={styles.alert}>
+          <p>Item deleted successfully!</p>
+        </div>
+      )}
       <h1>All Listed Items</h1>
 
       {products.length === 0 ? (
@@ -46,7 +69,7 @@ function List() {
                 className={styles.deleteButton}
                 onClick={() => {
                   // TODO: Add delete functionality
-                  console.log("Delete product:", p._id);
+                  handleDeleteItem(p._id);
                 }}
                 title="Delete product"
               >
