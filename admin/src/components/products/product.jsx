@@ -3,6 +3,10 @@ import upload from "../../assets/upload.png";
 import { useContext, useState } from "react";
 import axios from "axios";
 import serverContext from "../../store/server";
+import { MdDownloadDone } from "react-icons/md";
+
+
+
 function Product() {
   const { serverURL } = useContext(serverContext);
   const [image1, setImage1] = useState(false);
@@ -11,6 +15,8 @@ function Product() {
   const [image4, setImage4] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  //const [showSuccess, setShowSuccess] = useState(false);
+  const [alert,setAlert]=useState(false);
 
   async function handleAddProduct(e) {
     e.preventDefault();
@@ -56,14 +62,17 @@ function Product() {
         {withCredentials:true}
       );
 
-      if (response.data.success) {
-        // Reset form and states
+      if (response.status==200 || response.status==201) {
         form.reset();
         setImage1(false);
         setImage2(false);
         setImage3(false);
         setImage4(false);
-        alert("Product added successfully!");
+        setAlert(true);
+        //hide alert after 4 second
+        setTimeout(()=>{
+          setAlert(false);
+        },4000);
       }
     } catch (error) {
       setError(error.response?.data?.message || "Error adding product");
@@ -74,6 +83,12 @@ function Product() {
   }
   return (
     <div className={styles.addProducts}>
+      {alert && (
+        <div className={styles.successAlert}>
+          <MdDownloadDone size={20} />
+          <p>Product added successfully!</p>
+        </div>
+      )}
       <h2>Add Products</h2>
       <form
         className={styles.productForm}

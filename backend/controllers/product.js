@@ -2,7 +2,7 @@ import productModel from "../model/productModel.js";
 import uploadOnCloudinary from "./cloudinary.js";
 
 async function addProduct(req, res, next) {
-  console.log("i am calling")
+  
   try {
     const {
       name,
