@@ -2,6 +2,7 @@ import productModel from "../model/productModel.js";
 import uploadOnCloudinary from "./cloudinary.js";
 
 async function addProduct(req, res, next) {
+  console.log("i am calling")
   try {
     const {
       name,
@@ -12,7 +13,6 @@ async function addProduct(req, res, next) {
       sizes,
       bestseller,
     } = req.body;
-
     // Upload multiple images dynamically
     const images = {};
     for (let i = 1; i <= 4; i++) {
@@ -22,7 +22,6 @@ async function addProduct(req, res, next) {
         );
       }
     }
-
     // Parse sizes safely
     let parsedSizes = [];
     try {
@@ -30,7 +29,6 @@ async function addProduct(req, res, next) {
     } catch {
       parsedSizes = [];
     }
-
     const productData = {
       name,
       description,
@@ -42,7 +40,6 @@ async function addProduct(req, res, next) {
       date: Date.now(),
       ...images, // spread all images
     };
-
     const product = new productModel(productData);
     await product.save();
 

@@ -1,20 +1,84 @@
 import styles from "./product.module.css";
 import upload from "../../assets/upload.png";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import axios from "axios";
+import serverContext from "../../store/server";
 function Product() {
+  const { serverURL } = useContext(serverContext);
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
   const [image4, setImage4] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function handleAddProduct(e) {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const form = e.target;
+      const formData = new FormData();
+
+      // Get form field values
+      const name = form.name.value;
+      const description = form.description.value;
+      const price = form.price.value;
+      const category = form.category.value;
+      const subCategory = form.subCategory.value;
+      const bestseller = form.bestseller.checked;
+
+      // Get selected sizes
+      const sizeCheckboxes = form.querySelectorAll(
+        'input[name="sizes"]:checked'
+      );
+      const sizes = Array.from(sizeCheckboxes).map((cb) => cb.value);
+
+      // Append form fields
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("bestseller", bestseller);
+      formData.append("sizes", JSON.stringify(sizes));
+
+      // Append images if selected
+      if (image1) formData.append("image1", image1);
+      if (image2) formData.append("image2", image2);
+      if (image3) formData.append("image3", image3);
+      if (image4) formData.append("image4", image4);
+
+      const response = await axios.post(
+        `${serverURL}/api/product/addProduct`,
+        formData,
+        {withCredentials:true}
+      );
+
+      if (response.data.success) {
+        // Reset form and states
+        form.reset();
+        setImage1(false);
+        setImage2(false);
+        setImage3(false);
+        setImage4(false);
+        alert("Product added successfully!");
+      }
+    } catch (error) {
+      setError(error.response?.data?.message || "Error adding product");
+      console.error("Error adding product:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <div className={styles.addProducts}>
       <h2>Add Products</h2>
       <form
         className={styles.productForm}
-        
+        onSubmit={handleAddProduct}
         method="POST"
-        
       >
         <div className={styles.uploadSection}>
           <p className={styles.uploadTitle}>Upload Images</p>
@@ -205,8 +269,14 @@ function Product() {
           </label>
         </div>
 
-        <button type="submit" className={styles.submitButton}>
-          Add Product
+        {error && <div className={styles.error}>{error}</div>}
+
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={loading}
+        >
+          {loading ? "Adding Product..." : "Add Product"}
         </button>
       </form>
     </div>
