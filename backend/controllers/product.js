@@ -52,4 +52,16 @@ async function addProduct(req, res, next) {
   }
 }
 
-export default addProduct;
+async function listProduct(req,res,next){
+  try{
+    const products=await productModel.find({})
+    return res.status(200).json({products})
+  }catch(error){
+    return res.status(500).json({
+      message:"something went wrong on listProduct!",
+      error:error
+    })
+  }
+}
+
+export {addProduct,listProduct};
