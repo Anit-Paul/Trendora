@@ -15,7 +15,8 @@ function ProductProvider({ children }) {
           `${serverURL}/api/product/listProduct`
         );
         if (response.status == 200 || response.status == 201) {
-          setProduct(response.data);
+            console.log(response.data)
+          setProduct(response.data.products);
         }
       } catch (error) {
         console.log(error);

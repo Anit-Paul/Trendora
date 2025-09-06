@@ -1,0 +1,291 @@
+/* ===== Layout ===== */
+.pageWrapper {
+  display: flex;
+  min-height: calc(100vh - 5rem);
+  margin-top: 5rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* ===== Filter Panel ===== */
+.filter {
+  width: 280px;
+  min-width: 280px;
+  padding: 2rem;
+  background: #fff;
+  height: calc(100vh - 5rem);
+  position: sticky;
+  top: 5rem;
+  border-right: 1px solid #e2e8f0;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.filter h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+  text-align: center;
+}
+
+.filter h4 {
+  color: #4a5568;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid #4299e1;
+}
+
+.filterGroup {
+  margin-bottom: 2.5rem;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.filterItem:hover {
+  background-color: #f7fafc;
+}
+
+.filterItem input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e0;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #4299e1;
+}
+
+.filterItem label {
+  flex: 1;
+  color: #4a5568;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filterItem:hover label {
+  color: #2d3748;
+}
+
+/* ===== Main Content ===== */
+.container {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.container h1 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(135deg, #4299e1, #3182ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.5rem;
+}
+
+/* ===== Product Grid ===== */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* exactly 4 cards per row */
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+}
+
+/* Image container keeps square ratio */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.productImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .productImage {
+  transform: scale(1.05);
+}
+
+.cardContent {
+  padding: 1rem;
+  text-align: center;
+}
+
+.productName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productPrice {
+  color: #2d3748;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.viewButton {
+  width: 100%;
+  padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #4299e1, #3182ce);
+  transition: all 0.3s ease;
+}
+
+.viewButton:hover {
+  background: linear-gradient(135deg, #3182ce, #2c5282);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.25);
+}
+
+/* ===== Empty State ===== */
+.emptyState {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #718096;
+}
+
+.emptyState h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .filter {
+    width: 250px;
+    min-width: 250px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .pageWrapper {
+    flex-direction: column;
+  }
+  .filter {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.5rem;
+  }
+  .filter h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .filterGroup {
+    margin-bottom: 1.5rem;
+  }
+  .container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+  .pageWrapper {
+    margin-top: 4rem;
+  }
+  .filter {
+    padding: 1rem;
+  }
+  .filter h3 {
+    font-size: 1.1rem;
+  }
+  .filter h4 {
+    font-size: 1rem;
+  }
+  .filterItem {
+    padding: 0.4rem;
+  }
+  .filterItem label {
+    font-size: 0.9rem;
+  }
+  .container {
+    padding: 1rem;
+  }
+  .card {
+    border-radius: 8px;
+  }
+  .productName {
+    font-size: 1rem;
+  }
+  .productPrice {
+    font-size: 1rem;
+  }
+  .viewButton {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
