@@ -8,7 +8,7 @@ function UserProvider({ children }) {
   const { serverURL } = useContext(AuthContext);
   const [user, setUser] = useState("");
   async function getCurrentUser() {
-    console.log()
+    //console.log()
     try {
       const response = await axios.get(
         `${serverURL}/api/user/getUser`,
