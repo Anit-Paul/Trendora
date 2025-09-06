@@ -2,7 +2,7 @@ import UserContext from "./userContext";
 import AuthContext from "./authContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 function UserProvider({ children }) {
   const { serverURL } = useContext(AuthContext);
@@ -10,9 +10,10 @@ function UserProvider({ children }) {
   async function getCurrentUser() {
     //console.log()
     try {
-      const response = await axios.get(
-        `${serverURL}/api/user/getUser`,
-      );
+      const response = await axios.get(`${serverURL}/api/user/getUser`, {
+  withCredentials: true,
+});
+
       setUser(response.data);
       //console.log(response.data);
     } catch (error) {

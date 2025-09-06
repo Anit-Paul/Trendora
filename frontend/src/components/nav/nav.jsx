@@ -15,6 +15,7 @@ function Nav() {
       const response = await axios.post(`${serverURL}/api/auth/logout`);
       if (response.status == 200 || response.status == 201) {
         getCurrentUser();
+        console.log("navigating")
         Navigate("/login");
       }
     } catch (error) {

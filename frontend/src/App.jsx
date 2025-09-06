@@ -4,6 +4,7 @@ import { useContext } from "react";
 import UserContext from "./context/userContext";
 import Login from "./components/login/login.jsx";
 import Hero from "./components/hero/Hero.jsx";
+import Collections from "./components/collections/collections.jsx";
 function Layout() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route element={<Layout />}>
         <Route path="/hero" element={<Hero />} />
+        <Route path="/collections" element={<Collections />} />
       </Route>
     </Routes>
   );
